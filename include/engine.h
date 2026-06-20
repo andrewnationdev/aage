@@ -7,8 +7,8 @@ struct EngineContext {
 	bool isRunning;
 	GameObject objects[1024];
 	int num_objects = 0;
-	float height;
-	float width;
+	int height;
+	int width;
 	float friction;
 };
 

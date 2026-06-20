@@ -59,7 +59,22 @@ B) Para rodar o motor do jogo:
 C) Para limpar os arquivos gerados (limpeza de build velha):
    `$ make clean`
 
-## 7. IDEIAS PARA O FUTURO
+## 7. CONFIGURAÇÃO DO RAYLIB
+
+1. Baixe a versão oficial já compilada para Linux 64-bits
+
+`wget https://github.com/raysan5/raylib/releases/download/5.0/raylib-5.0_linux_amd64.tar.gz`
+
+2. Descompacte o arquivo
+`tar -xvf raylib-5.0_linux_amd64.tar.gz`
+
+3. Mova os arquivos para o seu sistema reconhecer automaticamente
+
+`sudo cp raylib-5.0_linux_amd64/include/raylib.h /usr/local/include/`
+
+`sudo cp raylib-5.0_linux_amd64/lib/libraylib.a /usr/local/lib/`
+
+## 8. IDEIAS PARA O FUTURO
 
 * Para adicionar propriedades aos objetos (ex: vida, cor): altere 'gameobject.h'.
 * Para mudar a lógica de exibição gráfica (ex: usar SDL2 ou Raylib): altere apenas 
