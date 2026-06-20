@@ -89,30 +89,23 @@ void engine_spawn_object(EngineContext *ctx, float pos_x, float pos_y, float spe
 void engine_handle_input(EngineContext *ctx) {
 	if(ctx->num_objects == 0) return;
 
-	int random = (rand() % 4) + 1;
-
-	switch(random) {
-	case 1:
-		ctx->objects[0].speed.x = 0;
-		ctx->objects[0].speed.y = -40.0;
-		std::cout << "[W PRESSED]" << std::endl;
-		break;
-	case 2:
-		ctx->objects[0].speed.x = 0;
-		ctx->objects[0].speed.y = 40.0;
-		std::cout << "[S PRESSED]" << std::endl;
-		break;
-	case 3:
-		ctx->objects[0].speed.x = -40.0;
-		ctx->objects[0].speed.y = 0;
-		std::cout << "[A PRESSED]" << std::endl;
-		break;
-	case 4:
-		ctx->objects[0].speed.x = 40.0;
-		ctx->objects[0].speed.y = 0;
-		std::cout << "[D PRESSED]" << std::endl;
-		break;
-	default:
-		break;
-	}
+	if (IsKeyDown(KEY_W)) {
+        ctx->objects[0].speed.y = -40.0f;
+        std::cout << "[W PRESSED]" << std::endl;
+    }
+    
+    if (IsKeyDown(KEY_S)) {
+        ctx->objects[0].speed.y = 40.0f;
+        std::cout << "[S PRESSED]" << std::endl;
+    }
+    
+    if (IsKeyDown(KEY_A)) {
+        ctx->objects[0].speed.x = -40.0f;
+        std::cout << "[A PRESSED]" << std::endl;
+    }
+    
+    if (IsKeyDown(KEY_D)) {
+        ctx->objects[0].speed.x = 40.0f;
+        std::cout << "[D PRESSED]" << std::endl;
+    }
 }

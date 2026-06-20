@@ -32,7 +32,7 @@ int main()
 
 	while(!window_should_close() && context.isRunning) {
 		window_clear();
-		//engine_handle_input(&context);
+		engine_handle_input(&context);
 		engine_update(&context, 1.016f);
 		engine_render(&context);
 		window_present();
