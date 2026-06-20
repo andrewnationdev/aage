@@ -17,6 +17,13 @@ void engine_update(EngineContext *ctx, float deltaTime);
 void engine_render(EngineContext *ctx);
 void engine_shutdown(EngineContext *ctx);
 void engine_handle_input(EngineContext *ctx);
-void engine_spawn_object(EngineContext *ctx, float pos_x, float pos_y, float speed_x, float speed_y);
+void engine_spawn_object(EngineContext *ctx, 
+	float pos_x, 
+	float pos_y, 
+	float speed_x, 
+	float speed_y, 
+	float width, 
+	float height
+);
 
 #endif

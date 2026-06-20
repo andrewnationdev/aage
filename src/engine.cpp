@@ -1,5 +1,6 @@
 #include "../include/engine.h"
 #include "../include/gameobject.h"
+#include "raylib.h"
 #include <iostream>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -8,8 +9,8 @@ void engine_init(EngineContext *ctx) {
 	ctx->isRunning = true;
 	ctx->friction = 0.95f;
 
-	engine_spawn_object(ctx, 344, 267, 1.5, 1.5);
-	engine_spawn_object(ctx, 215, 467, 1.6, 1.9);
+	engine_spawn_object(ctx, 344, 267, 1.5, 1.5, 30, 55);
+	engine_spawn_object(ctx, 215, 467, 1.6, 1.9, 55, 30);
 }
 
 void engine_update(EngineContext *ctx, float deltaTime) {
@@ -54,12 +55,24 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 
 void engine_render(EngineContext *ctx) {
 	for(int obj = 0; obj < ctx->num_objects; obj++) {
-		printf("Obj ID %d at (x=%f, y=%f) [health=%d]\n",
+		/*printf("Obj ID %d at (x=%f, y=%f) [health=%d]\n",
 		       ctx->objects[obj].id,
 		       ctx->objects[obj].position.x,
 		       ctx->objects[obj].position.y,
 			   ctx->objects[obj].health
-			);
+			);*/
+		float x = ctx->objects[obj].position.x;
+		float y = ctx->objects[obj].position.y;
+		float width = ctx->objects[obj].width;
+		float height = ctx->objects[obj].height;
+
+		DrawRectangle(
+			x,
+			y,
+			width,
+			height,
+			RED
+		);
 	}
 }
 
@@ -67,8 +80,8 @@ void engine_shutdown(EngineContext *ctx) {
 	ctx->isRunning = false;
 }
 
-void engine_spawn_object(EngineContext *ctx, float pos_x, float pos_y, float speed_x, float speed_y) {
-	gameobject_create(&ctx->objects[ctx->num_objects], ctx->num_objects, pos_x, pos_y, speed_x, speed_y);
+void engine_spawn_object(EngineContext *ctx, float pos_x, float pos_y, float speed_x, float speed_y, float width, float height) {
+	gameobject_create(&ctx->objects[ctx->num_objects], ctx->num_objects, pos_x, pos_y, speed_x, speed_y, width, height);
 
 	ctx->num_objects += 1;
 }

@@ -13,9 +13,11 @@ struct GameObject {
     Vector2D position;
     Vector2D speed;
     int health;
+    float width;
+    float height;
 };
 
-void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy);
+void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy, float width, float height);
 
 void gameobject_destroy(EngineContext *ctx, int index);
 
