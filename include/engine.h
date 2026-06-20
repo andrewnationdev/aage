@@ -9,6 +9,7 @@ struct EngineContext {
 	int num_objects = 0;
 	float height;
 	float width;
+	float friction;
 };
 
 void engine_init(EngineContext *ctx);

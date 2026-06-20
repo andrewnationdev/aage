@@ -6,6 +6,7 @@
 
 void engine_init(EngineContext *ctx) {
 	ctx->isRunning = true;
+	ctx->friction = 0.95f;
 
 	engine_spawn_object(ctx, 344, 267, 1.5, 1.5);
 	engine_spawn_object(ctx, 215, 467, 1.6, 1.9);
@@ -13,13 +14,17 @@ void engine_init(EngineContext *ctx) {
 
 void engine_update(EngineContext *ctx, float deltaTime) {
 	for(int obj = 0; obj < ctx->num_objects; obj++) {
-		float curr_x = ctx->objects[obj].position.x;
-		float curr_y = ctx->objects[obj].position.y;
 		float x_speed = ctx->objects[obj].speed.x;
 		float y_speed = ctx->objects[obj].speed.y;
 
-		curr_x += x_speed * deltaTime;
-		curr_y += y_speed * deltaTime;
+		x_speed *= ctx->friction;
+		y_speed *= ctx->friction;
+
+		ctx->objects[obj].speed.x = x_speed;
+        ctx->objects[obj].speed.y = y_speed;
+
+		float curr_x = ctx->objects[obj].position.x + x_speed * deltaTime;
+		float curr_y = ctx->objects[obj].position.y + y_speed * deltaTime;
 
 		if(ctx->objects[obj].health <= 0){
 			gameobject_destroy(ctx, obj);
@@ -76,21 +81,21 @@ void engine_handle_input(EngineContext *ctx) {
 	switch(random) {
 	case 1:
 		ctx->objects[0].speed.x = 0;
-		ctx->objects[0].speed.y = -5.0;
+		ctx->objects[0].speed.y = -40.0;
 		std::cout << "[W PRESSED]" << std::endl;
 		break;
 	case 2:
 		ctx->objects[0].speed.x = 0;
-		ctx->objects[0].speed.y = 5.0;
+		ctx->objects[0].speed.y = 40.0;
 		std::cout << "[S PRESSED]" << std::endl;
 		break;
 	case 3:
-		ctx->objects[0].speed.x = -5.0;
+		ctx->objects[0].speed.x = -40.0;
 		ctx->objects[0].speed.y = 0;
 		std::cout << "[A PRESSED]" << std::endl;
 		break;
 	case 4:
-		ctx->objects[0].speed.x = 5.0;
+		ctx->objects[0].speed.x = 40.0;
 		ctx->objects[0].speed.y = 0;
 		std::cout << "[D PRESSED]" << std::endl;
 		break;
