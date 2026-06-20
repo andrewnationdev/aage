@@ -1,4 +1,5 @@
 #include "../include/engine.h"
+#include "../include/gameobject.h"
 #include <iostream>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -20,10 +21,17 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 		curr_x += x_speed * deltaTime;
 		curr_y += y_speed * deltaTime;
 
+		if(ctx->objects[obj].health <= 0){
+			gameobject_destroy(ctx, obj);
+			obj--;
+			continue;
+		}
+
 		if(curr_x > ctx->width ||
 		        curr_x < 0) {
 			ctx->objects[obj].speed.x *= -1;
 			curr_x = (curr_x < 0) ? 0 : ctx->width;
+			ctx->objects[obj].health -= 10;
 		}
 
 		if(curr_y > ctx->height ||
@@ -31,6 +39,7 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 		  ) {
 			ctx->objects[obj].speed.y *= -1;
 			curr_y = (curr_y < 0) ? 0 : ctx->height;
+			ctx->objects[obj].health -= 10;
 		}
 
 		ctx->objects[obj].position.x = curr_x;
@@ -40,10 +49,12 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 
 void engine_render(EngineContext *ctx) {
 	for(int obj = 0; obj < ctx->num_objects; obj++) {
-		printf("Obj ID %d at (x=%f, y=%f)\n",
+		printf("Obj ID %d at (x=%f, y=%f) [health=%d]\n",
 		       ctx->objects[obj].id,
 		       ctx->objects[obj].position.x,
-		       ctx->objects[obj].position.y);
+		       ctx->objects[obj].position.y,
+			   ctx->objects[obj].health
+			);
 	}
 }
 
@@ -66,22 +77,22 @@ void engine_handle_input(EngineContext *ctx) {
 	case 1:
 		ctx->objects[0].speed.x = 0;
 		ctx->objects[0].speed.y = -5.0;
-		std::cout << "W PRESSED" << std::endl;
+		std::cout << "[W PRESSED]" << std::endl;
 		break;
 	case 2:
 		ctx->objects[0].speed.x = 0;
 		ctx->objects[0].speed.y = 5.0;
-		std::cout << "S PRESSED" << std::endl;
+		std::cout << "[S PRESSED]" << std::endl;
 		break;
 	case 3:
 		ctx->objects[0].speed.x = -5.0;
 		ctx->objects[0].speed.y = 0;
-		std::cout << "A PRESSED" << std::endl;
+		std::cout << "[A PRESSED]" << std::endl;
 		break;
 	case 4:
 		ctx->objects[0].speed.x = 5.0;
 		ctx->objects[0].speed.y = 0;
-		std::cout << "D PRESSED" << std::endl;
+		std::cout << "[D PRESSED]" << std::endl;
 		break;
 	default:
 		break;

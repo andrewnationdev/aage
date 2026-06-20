@@ -5,7 +5,7 @@
 
 int main()
 {
-	std::cout<<"Initializing game engine" << std::endl;
+	std::cout<<"Initializing game engine..." << std::endl;
 
 	EngineContext context;
 	context.isRunning = true;
