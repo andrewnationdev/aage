@@ -1,3 +1,8 @@
+/**
+CÓDIGO ORIGINAL DESENVOLVIDO POR ANDRÉ PEREIRA JUSTINIANO,
+Partes do código foram comentadas a fim de auxiliá-lo no uso e na expansão
+dessa engine.
+*/
 #include <iostream>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -21,8 +26,7 @@ int main()
 	window.width = context.width;
 	window.height = context.height;
 
-	int frames = 0;
-
+	//Criar a janela de acordo com o tamanho e título definidos no context da Engine
 	window_create(&window, 
 		window.width, 
 		window.height, 
@@ -32,12 +36,10 @@ int main()
 
 	while(!window_should_close() && context.isRunning) {
 		window_clear();
-		engine_handle_input(&context);
-		engine_update(&context, 1.016f);
-		engine_render(&context);
+		engine_handle_input(&context); //Adicione os controles aqui
+		engine_update(&context, 1.016f); //Atualize movimentos e física aqui
+		engine_render(&context); // Renderize o jogo e desenhe objetos aqui
 		window_present();
-
-		frames++;
 	}
 
 	window_destroy();
