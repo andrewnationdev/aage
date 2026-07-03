@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include "raylib.h"
+
 struct EngineContext;
 
 struct Vector2D {
@@ -15,6 +17,7 @@ struct GameObject {
     int health;
     float width;
     float height;
+    Color color;
 };
 
 void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy, float width, float height);

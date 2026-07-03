@@ -14,6 +14,7 @@ void gameobject_create(GameObject *obj, int id, float x, float y, float sx, floa
     obj->health = 100;
     obj->width = width;
     obj->height = height;
+    obj->color = BLUE;
 }
 
 //Remova o objeto do jogo aqui

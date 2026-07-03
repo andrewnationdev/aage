@@ -39,12 +39,14 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 			ctx->objects[obj].speed.x *= -1;
 			curr_x = (curr_x < 0) ? 0 : (ctx->width - ctx->objects[obj].width);
 			ctx->objects[obj].health -= 10;
+			ctx->objects[obj].color = RED;
 		}
 
 		if(curr_y + ctx->objects[obj].height > ctx->height || curr_y < 0) {
 			ctx->objects[obj].speed.y *= -1;
 			curr_y = (curr_y < 0) ? 0 : (ctx->height - ctx->objects[obj].height);
 			ctx->objects[obj].health -= 10;
+			ctx->objects[obj].color = RED;
 		}
 
 		ctx->objects[obj].position.x = curr_x;
@@ -66,7 +68,7 @@ void engine_render(EngineContext *ctx) {
 			y,
 			width,
 			height,
-			RED
+			ctx->objects[obj].color
 		);
 	}
 }

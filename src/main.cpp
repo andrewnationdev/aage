@@ -35,9 +35,9 @@ int main()
 	engine_init(&context);
 
 	while(!window_should_close() && context.isRunning) {
-		window_clear();
 		engine_handle_input(&context); //Adicione os controles aqui
-		engine_update(&context, 1.016f); //Atualize movimentos e física aqui
+		engine_update(&context, 0.016f); //Atualize movimentos e física aqui
+		window_clear();
 		engine_render(&context); // Renderize o jogo e desenhe objetos aqui
 		window_present();
 	}
