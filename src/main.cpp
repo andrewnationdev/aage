@@ -34,15 +34,30 @@ int main()
 
 	engine_init(&context);
 
+	Camera2D camera = { 0 };
+
+	camera.offset = { (float)window.width / 2.0f, (float)window.height / 2.0f };
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
+
 	while(!window_should_close() && context.isRunning) {
-		engine_handle_input(&context); //Adicione os controles aqui
-		engine_update(&context, 0.016f); //Atualize movimentos e física aqui
-		window_clear();
-		engine_render(&context); // Renderize o jogo e desenhe objetos aqui
-		window_present();
-	}
+        engine_handle_input(&context);
+        engine_update(&context, 0.016f);
 
-	window_destroy();
+        if (context.num_objects > 0) {
+            camera.target = { context.objects[0].position.x, context.objects[0].position.y };
+        }
 
-	return 0;
+        window_clear();
+
+        BeginMode2D(camera);
+        
+        engine_render(&context);
+        
+        EndMode2D();
+        window_present();
+    }
+
+    window_destroy();
+    return 0;
 }
