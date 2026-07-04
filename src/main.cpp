@@ -8,6 +8,7 @@ dessa engine.
 #include <stdlib.h>
 #include "../include/engine.h"
 #include "../include/window.h"
+#include "../include/game.h"
 
 int main()
 {
@@ -36,6 +37,10 @@ int main()
 
 	Camera2D camera = { 0 };
 
+	//Inicializa o estado do jogo
+	GameState current_state = STATE_PLAYING;
+	game_init_level(&context, current_state);
+
 	camera.offset = { (float)window.width / 2.0f, (float)window.height / 2.0f };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
@@ -47,6 +52,8 @@ int main()
         if (context.num_objects > 0) {
             camera.target = { context.objects[0].position.x, context.objects[0].position.y };
         }
+
+		game_check_rules(&context, &current_state);
 
         window_clear();
 

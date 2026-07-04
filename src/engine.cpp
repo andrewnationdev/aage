@@ -8,10 +8,6 @@
 void engine_init(EngineContext *ctx) {
 	ctx->isRunning = true;
 	ctx->friction = 0.95f;
-
-	//Coloca objetos na tela assim que o jogo iniciar
-	engine_spawn_object(ctx, 344, 267, 1.5, 1.5, 30, 55);
-	engine_spawn_object(ctx, 215, 467, 1.6, 1.9, 55, 30);
 }
 
 void engine_update(EngineContext *ctx, float deltaTime) {
@@ -38,15 +34,10 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 		if(curr_x + ctx->objects[obj].width > ctx->width || curr_x < 0) {
 			ctx->objects[obj].speed.x *= -1;
 			curr_x = (curr_x < 0) ? 0 : (ctx->width - ctx->objects[obj].width);
-			ctx->objects[obj].health -= 10;
-			ctx->objects[obj].color = RED;
 		}
 
 		if(curr_y + ctx->objects[obj].height > ctx->height || curr_y < 0) {
 			ctx->objects[obj].speed.y *= -1;
-			curr_y = (curr_y < 0) ? 0 : (ctx->height - ctx->objects[obj].height);
-			ctx->objects[obj].health -= 10;
-			ctx->objects[obj].color = RED;
 		}
 
 		ctx->objects[obj].position.x = curr_x;
