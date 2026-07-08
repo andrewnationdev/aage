@@ -3,13 +3,27 @@
 
 /*** O JOGO É PROGRAMADO NESTE ARQUIVO */
 void game_init_level(EngineContext *ctx, GameState state) {
-    ctx->num_objects = 0; 
+    ctx->num_objects = 0;
 
     if (state == STATE_PLAYING) {
-        std::cout << "Carregando Fase 1..." << std::endl;
+        engine_spawn_object(ctx, 120.0f, 160.0f, 0.0f, 0.0f, 25.0f, 25.0f);
+        ctx->objects[ctx->num_objects - 1].color = BLUE;
+        
+        float block_w = 110.0f;
+        float block_h = 150.0f;
+        
+        float street_w = 40.0f;
+        float street_h = 50.0f;
 
-        engine_spawn_object(ctx, 344, 267, 1.5f, 1.5f, 30.0f, 55.0f);
-        engine_spawn_object(ctx, 100, 100, 2.0f, 1.0f, 40.0f, 40.0f);
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                float x = col * (block_w + street_w);
+                float y = row * (block_h + street_h);
+
+                engine_spawn_object(ctx, x, y, 0.0f, 0.0f, block_w, block_h);
+                ctx->objects[ctx->num_objects - 1].color = DARKGRAY;
+            }
+        }
     }
 }
 

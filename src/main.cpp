@@ -19,8 +19,8 @@ int main()
 
 	//Inicializa o contexto da Engine
 	context.isRunning = true;
-	context.height = 800;
-	context.width = 600;
+	context.height = 600;
+	context.width = 800;
 
 	//Inicializa a janela
 	window.title = "AAGE - Window";
