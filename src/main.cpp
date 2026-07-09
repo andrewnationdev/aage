@@ -33,6 +33,8 @@ int main()
 		window.height,
 		window.title);
 
+	InitAudioDevice();
+
 	engine_init(&context);
 
 	Camera2D camera = { 0 };
