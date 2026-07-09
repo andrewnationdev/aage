@@ -28,9 +28,9 @@ int main()
 	window.height = context.height;
 
 	//Criar a janela de acordo com o tamanho e título definidos no context da Engine
-	window_create(&window, 
-		window.width, 
-		window.height, 
+	window_create(&window,
+		window.width,
+		window.height,
 		window.title);
 
 	engine_init(&context);
@@ -58,10 +58,11 @@ int main()
         window_clear();
 
         BeginMode2D(camera);
-        
+
         engine_render(&context);
-        
+
         EndMode2D();
+        game_render_gui(&context, &current_state);
         window_present();
     }
 

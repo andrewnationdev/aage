@@ -10,6 +10,9 @@ enum GameState {
 };
 
 void game_init_level(EngineContext *ctx, GameState state);
+
 void game_check_rules(EngineContext *ctx, GameState *current_state);
+
+void game_render_gui(EngineContext *ctx, GameState *current_state);
 
 #endif
