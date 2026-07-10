@@ -1,6 +1,6 @@
-#include "../include/engine.h"
-#include "../include/gameobject.h"
-#include "../include/physics.h"
+#include "../../include/engine.h"
+#include "../../include/gameobject.h"
+#include "../../include/physics.h"
 #include "raylib.h"
 #include <iostream>
 #include <stdbool.h>
@@ -98,17 +98,17 @@ void engine_handle_input(EngineContext *ctx) {
         ctx->objects[0].speed.y = -40.0f;
         std::cout << "[W PRESSED]" << std::endl;
     }
-    
+
     if (IsKeyDown(KEY_S)) {
         ctx->objects[0].speed.y = 40.0f;
         std::cout << "[S PRESSED]" << std::endl;
     }
-    
+
     if (IsKeyDown(KEY_A)) {
         ctx->objects[0].speed.x = -40.0f;
         std::cout << "[A PRESSED]" << std::endl;
     }
-    
+
     if (IsKeyDown(KEY_D)) {
         ctx->objects[0].speed.x = 40.0f;
         std::cout << "[D PRESSED]" << std::endl;

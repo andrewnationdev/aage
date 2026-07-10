@@ -1,4 +1,4 @@
-#include "../include/physics.h"
+#include "../../include/physics.h"
 
 bool check_aabb_collision(GameObject *a, GameObject *b){
     if(a->position.x + a->width < b->position.x)

@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "../include/gameobject.h"
-#include "../include/engine.h"
+#include "../../include/gameobject.h"
+#include "../../include/engine.h"
 
 //Você pode adicionar outras propriedades aqui relevantes para o objeto
 void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy, float width, float height) {

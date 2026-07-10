@@ -1,4 +1,4 @@
-#include "../include/gui.h"
+#include "../../include/gui.h"
 
 void gui_draw_text(
     const char *text,
