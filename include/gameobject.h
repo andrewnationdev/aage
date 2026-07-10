@@ -18,9 +18,19 @@ struct GameObject {
     float width;
     float height;
     Color color;
+    int type;
 };
 
-void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy, float width, float height);
+void gameobject_create(
+    GameObject *obj,
+    int id,
+    float x,
+    float y,
+    float sx,
+    float sy,
+    float width,
+    float height
+);
 
 void gameobject_destroy(EngineContext *ctx, int index);
 

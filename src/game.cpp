@@ -1,6 +1,8 @@
 #include "../include/game.h"
 #include "../include/gui.h"
+#include "../include/scripts.h"
 #include <iostream>
+#include <format>
 
 /*** O JOGO É PROGRAMADO NESTE ARQUIVO */
 void game_init_level(EngineContext *ctx, GameState state) {
@@ -26,10 +28,14 @@ void game_init_level(EngineContext *ctx, GameState state) {
             }
         }
     }
+
+    script_init_elements(ctx);
 }
 
 void game_check_rules(EngineContext *ctx, GameState *current_state) {
     if (*current_state == STATE_PLAYING) {
+        script_update_elements(ctx);
+
         if (ctx->num_objects == 0 || ctx->objects[0].health <= 0) {
             std::cout << "Game Over! Voltando ao Menu..." << std::endl;
             *current_state = STATE_GAME_OVER;
@@ -48,7 +54,7 @@ void game_render_gui(EngineContext *ctx, GameState *current_state){
         int pos_y_health = 50;
 
         gui_draw_text(
-            "PONTOS: 0000",
+            TextFormat("PONTOS: R$ %04d", ctx->points),
             pos_x_points,
             pos_y_points,
             20,
@@ -56,7 +62,7 @@ void game_render_gui(EngineContext *ctx, GameState *current_state){
         );
 
         gui_draw_text(
-            "VIDA: 100",
+            TextFormat("VIDA: %d", ctx->objects[0].health),
             pos_x_health,
             pos_y_health,
             20,

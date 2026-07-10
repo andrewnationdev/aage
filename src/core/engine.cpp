@@ -1,6 +1,7 @@
 #include "../../include/engine.h"
 #include "../../include/gameobject.h"
 #include "../../include/physics.h"
+#include "../../include/scripts.h"
 #include "raylib.h"
 #include <iostream>
 #include <stdbool.h>
@@ -47,16 +48,19 @@ void engine_update(EngineContext *ctx, float deltaTime) {
 
 	int player = 0;
 
+	//Tratamento da colisão
 	for(int i = 1; i < ctx->num_objects; i++){
-        if(check_aabb_collision(&ctx->objects[player], &ctx->objects[i])){
-            std::cout << "💥 COLISAO DETECTADA COM O BLOCO " << i << std::endl;
+        if(ctx->objects[i].type != ObjectType::COIN) {
+            if(check_aabb_collision(&ctx->objects[player], &ctx->objects[i])){
+                //std::cout << "💥 COLISAO DETECTADA COM O BLOCO " << i << std::endl;
 
-            ctx->objects[player].position.x -= ctx->objects[player].speed.x * deltaTime * 1.1f;
-            ctx->objects[player].position.y -= ctx->objects[player].speed.y * deltaTime * 1.1f;
+                ctx->objects[player].position.x -= ctx->objects[player].speed.x * deltaTime * 1.1f;
+                ctx->objects[player].position.y -= ctx->objects[player].speed.y * deltaTime * 1.1f;
 
-            ctx->objects[player].speed.x = 0;
-            ctx->objects[player].speed.y = 0;
-            break;
+                ctx->objects[player].speed.x = 0;
+                ctx->objects[player].speed.y = 0;
+                break;
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
-#include <iostream>
 #include <stdbool.h>
 #include <stdlib.h>
 #include "../../include/gameobject.h"
 #include "../../include/engine.h"
+#include "../../include/scripts.h"
 
 //Você pode adicionar outras propriedades aqui relevantes para o objeto
 void gameobject_create(GameObject *obj, int id, float x, float y, float sx, float sy, float width, float height) {
@@ -15,6 +15,7 @@ void gameobject_create(GameObject *obj, int id, float x, float y, float sx, floa
     obj->width = width;
     obj->height = height;
     obj->color = BLUE;
+    obj->type = ObjectType::WALL;
 }
 
 //Remova o objeto do jogo aqui
