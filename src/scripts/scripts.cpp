@@ -22,28 +22,17 @@ void script_update_enemy_patrol(EngineContext *ctx){
             for(int j = 1; j < ctx->num_objects; j++){
                 GameObject *obj = &ctx->objects[j];
 
-                if(obj->type == ObjectType::WALL && check_aabb_collision(enemy, obj)){
-
-                    enemy->speed.x = enemy->speed.x * -1;
-                    enemy->speed.y = enemy->speed.y * -1;
-
-                    enemy->position.x = enemy->position.x + enemy->speed.x * 0.016f;
-                    enemy->position.y = enemy->position.y + enemy->speed.y * 0.016f;
-
-                    continue;
-                }
-
                 if (obj->type == ObjectType::WALL && check_aabb_collision(enemy, obj)) {
-                // Inverte a velocidade
-                enemy->speed.x *= -1.0f;
-                enemy->speed.y *= -1.0f;
+                    // Inverte a velocidade
+                    enemy->speed.x *= -1.0f;
+                    enemy->speed.y *= -1.0f;
 
-                //Garante que ele saia da caixa de colisão
-                enemy->position.x += enemy->speed.x * 0.016f * 2.0f;
-                enemy->position.y += enemy->speed.y * 0.016f * 2.0f;
+                    //Garante que ele saia da caixa de colisão
+                    enemy->position.x += enemy->speed.x * 0.016f * 2.0f;
+                    enemy->position.y += enemy->speed.y * 0.016f * 2.0f;
 
-                break;
-            }
+                    break;
+                }
             }
         }
     }
