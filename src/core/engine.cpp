@@ -99,22 +99,22 @@ void engine_handle_input(EngineContext *ctx) {
 	if(ctx->num_objects == 0) return;
 
 	if (IsKeyDown(KEY_W)) {
-        ctx->objects[0].speed.y = -40.0f;
+        ctx->objects[0].speed.y = -75.0f;
         std::cout << "[W PRESSED]" << std::endl;
     }
 
     if (IsKeyDown(KEY_S)) {
-        ctx->objects[0].speed.y = 40.0f;
+        ctx->objects[0].speed.y = 75.0f;
         std::cout << "[S PRESSED]" << std::endl;
     }
 
     if (IsKeyDown(KEY_A)) {
-        ctx->objects[0].speed.x = -40.0f;
+        ctx->objects[0].speed.x = -75.0f;
         std::cout << "[A PRESSED]" << std::endl;
     }
 
     if (IsKeyDown(KEY_D)) {
-        ctx->objects[0].speed.x = 40.0f;
+        ctx->objects[0].speed.x = 75.0f;
         std::cout << "[D PRESSED]" << std::endl;
     }
 }

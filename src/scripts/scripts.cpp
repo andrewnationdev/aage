@@ -3,7 +3,7 @@
 #include "../../include/engine.h"
 
 void spawn_enemies(EngineContext *ctx){
-    engine_spawn_object(ctx, 122.0f, 50.0f, 0.0f, 150.0f, 20, 20);
+    engine_spawn_object(ctx, 122.0f, 250.0f, 0.0f, 100.0f, 20, 20);
     int i_first_enemy = ctx->num_objects - 1;
     ctx->objects[i_first_enemy].type = ObjectType::ENEMY;
     ctx->objects[i_first_enemy].color = RED;
@@ -14,23 +14,34 @@ void spawn_enemies(EngineContext *ctx){
     ctx->objects[i_second_enemy].color = RED;
 }
 
-void script_update_enemy_patrol(EngineContext *ctx){
-    for(int i = 1; i < ctx->num_objects; i++){
+void script_update_enemy_patrol(EngineContext *ctx) {
+    float maxSpeed = 100.0f;
+
+    for (int i = 1; i < ctx->num_objects; i++) {
         GameObject *enemy = &ctx->objects[i];
 
-        if(enemy->type == ObjectType::ENEMY){
-            for(int j = 1; j < ctx->num_objects; j++){
-                GameObject *obj = &ctx->objects[j];
+        if (enemy->type == ObjectType::ENEMY) {
 
-                if (obj->type == ObjectType::WALL && check_aabb_collision(enemy, obj)) {
-                    // Inverte a velocidade
+            // Dispara se o atrito reduzir a velocidade
+            if (enemy->speed.x != 0.0f) {
+                enemy->speed.x = (enemy->speed.x > 0) ? maxSpeed : -maxSpeed;
+            }
+            if (enemy->speed.y != 0.0f) {
+                enemy->speed.y = (enemy->speed.y > 0) ? maxSpeed : -maxSpeed;
+            }
+
+            for (int j = 1; j < ctx->num_objects; j++) {
+                GameObject *block = &ctx->objects[j];
+
+                if (block->type == ObjectType::WALL && check_aabb_collision(enemy, block)) {
+                    enemy->position.x -= enemy->speed.x * ctx->deltaTime;
+                    enemy->position.y -= enemy->speed.y * ctx->deltaTime;
+
                     enemy->speed.x *= -1.0f;
                     enemy->speed.y *= -1.0f;
 
-                    //Garante que ele saia da caixa de colisão
-                    enemy->position.x += enemy->speed.x * 0.016f * 2.0f;
-                    enemy->position.y += enemy->speed.y * 0.016f * 2.0f;
-
+                    enemy->position.x += enemy->speed.x * ctx->deltaTime;
+                    enemy->position.y += enemy->speed.y * ctx->deltaTime;
                     break;
                 }
             }
@@ -82,6 +93,18 @@ void script_update_collect_coins(EngineContext *ctx){
 void script_update_elements(EngineContext *ctx){
     script_update_collect_coins(ctx);
     script_update_enemy_patrol(ctx);
+
+    GameObject *player = &ctx->objects[0];
+
+    for(int i = 1; i < ctx->num_objects; i++){
+        GameObject *enemy = &ctx->objects[i];
+
+        if(enemy->type == ObjectType::ENEMY && check_aabb_collision(player, enemy)){
+            player->health -= 5 * ctx->deltaTime;
+
+            break;
+        }
+    }
 }
 
 void script_init_elements(EngineContext *ctx){
