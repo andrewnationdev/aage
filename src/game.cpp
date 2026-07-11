@@ -68,5 +68,9 @@ void game_render_gui(EngineContext *ctx, GameState *current_state){
             20,
             RED
         );
+    } else if(*current_state == STATE_GAME_OVER){
+        render_game_over(ctx, current_state);
+    } else if(*current_state == STATE_MENU){
+        render_main_menu(ctx, current_state);
     }
 }

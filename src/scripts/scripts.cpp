@@ -1,6 +1,7 @@
 #include "../../include/scripts.h"
 #include "../../include/physics.h"
 #include "../../include/engine.h"
+#include "../include/game.h"
 
 void spawn_enemies(EngineContext *ctx){
     engine_spawn_object(ctx, 122.0f, 250.0f, 0.0f, 100.0f, 20, 20);
@@ -113,4 +114,31 @@ void script_init_elements(EngineContext *ctx){
         spawn_coins(ctx);
         spawn_enemies(ctx);
     }
+}
+
+void render_main_menu(EngineContext *ctx, GameState *current_state) {
+    if (IsKeyPressed(KEY_SPACE)) {
+        ctx->objects[0].health = 100.0f;
+        ctx->points = 0;
+
+        game_init_level(ctx, STATE_PLAYING);
+
+        *current_state = STATE_PLAYING;
+    }
+
+    DrawText("AAGE - MEU JOGO", ctx->width / 2 - 150, ctx->height / 2 - 50, 32, WHITE);
+    DrawText("Pressione ESPAÇO para Jogar", ctx->width / 2 - 140, ctx->height / 2 + 20, 20, GRAY);
+}
+
+void render_game_over(EngineContext *ctx, GameState *current_state) {
+    if (IsKeyPressed(KEY_R)) {
+        game_init_level(ctx, STATE_PLAYING);
+        *current_state = STATE_PLAYING;
+    }
+    if (IsKeyPressed(KEY_M)) {
+        *current_state = STATE_MENU;
+    }
+
+    DrawText("GAME OVER", ctx->width / 2 - 100, ctx->height / 2 - 50, 36, RED);
+    DrawText("Pressione R para Reiniciar ou M para Menu", ctx->width / 2 - 180, ctx->height / 2 + 20, 18, WHITE);
 }

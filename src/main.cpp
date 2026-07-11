@@ -40,7 +40,7 @@ int main()
 	Camera2D camera = { 0 };
 
 	//Inicializa o estado do jogo
-	GameState current_state = STATE_PLAYING;
+	GameState current_state = STATE_MENU;
 	game_init_level(&context, current_state);
 
 	camera.offset = { (float)window.width / 2.0f, (float)window.height / 2.0f };
