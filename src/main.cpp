@@ -51,6 +51,8 @@ int main()
         engine_handle_input(&context);
         engine_update(&context, 0.016f);
 
+        context.deltaTime = GetFrameTime();
+
         if (context.num_objects > 0) {
             camera.target = { context.objects[0].position.x, context.objects[0].position.y };
         }

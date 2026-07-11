@@ -11,7 +11,7 @@ struct EngineContext {
 	int width;
 	float friction;
 	int points = 0;
-	float deltaTime = 0.016f;
+	float deltaTime = 0.0f;
 };
 
 void engine_init(EngineContext *ctx);
