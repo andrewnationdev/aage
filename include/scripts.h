@@ -15,7 +15,6 @@ void script_init_elements(EngineContext *ctx);
 
 void script_update_elements(EngineContext *ctx);
 
-
 void render_main_menu(EngineContext *ctx, GameState *current_state);
 
 void render_game_over(EngineContext *ctx, GameState *current_state);

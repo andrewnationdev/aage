@@ -2,7 +2,6 @@
 #include "../include/gui.h"
 #include "../include/scripts.h"
 #include <iostream>
-#include <format>
 
 /*** O JOGO É PROGRAMADO NESTE ARQUIVO */
 void game_init_level(EngineContext *ctx, GameState state) {

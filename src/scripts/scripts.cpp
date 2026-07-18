@@ -13,6 +13,26 @@ void spawn_enemies(EngineContext *ctx){
     int i_second_enemy = ctx->num_objects - 1;
     ctx->objects[i_second_enemy].type = ObjectType::ENEMY;
     ctx->objects[i_second_enemy].color = RED;
+
+    engine_spawn_object(ctx, 420.0f, 165.0f, 120.0f, 0.0f, 20, 20);
+    int i_third_enemy = ctx->num_objects - 1;
+    ctx->objects[i_third_enemy].type = ObjectType::ENEMY;
+    ctx->objects[i_third_enemy].color = RED;
+
+    engine_spawn_object(ctx, 270.0f, 80.0f, 0.0f, 100.0f, 20, 20);
+    int i_fourth_enemy = ctx->num_objects - 1;
+    ctx->objects[i_fourth_enemy].type = ObjectType::ENEMY;
+    ctx->objects[i_fourth_enemy].color = RED;
+
+    engine_spawn_object(ctx, 80.0f, 565.0f, 110.0f, 0.0f, 20, 20);
+    int i_fifth_enemy = ctx->num_objects - 1;
+    ctx->objects[i_fifth_enemy].type = ObjectType::ENEMY;
+    ctx->objects[i_fifth_enemy].color = RED;
+
+    engine_spawn_object(ctx, 420.0f, 400.0f, 0.0f, -140.0f, 20, 20);
+    int i_sixth_enemy = ctx->num_objects - 1;
+    ctx->objects[i_sixth_enemy].type = ObjectType::ENEMY;
+    ctx->objects[i_sixth_enemy].color = RED;
 }
 
 void script_update_enemy_patrol(EngineContext *ctx) {
@@ -66,6 +86,36 @@ void spawn_coins(EngineContext *ctx){
 
     engine_spawn_object(ctx, 272.0f, 167.0f, 0, 0, 15, 15);
 
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 422.0f, 167.0f, 0, 0, 15, 15);
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 272.0f, 350.0f, 0, 0, 15, 15);
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 50.0f, 367.0f, 0, 0, 15, 15);
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 422.0f, 367.0f, 0, 0, 15, 15);
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 122.0f, 567.0f, 0, 0, 15, 15);
+    index = ctx->num_objects - 1;
+    ctx->objects[index].type = ObjectType::COIN;
+    ctx->objects[index].color = YELLOW;
+
+    engine_spawn_object(ctx, 422.0f, 567.0f, 0, 0, 15, 15);
     index = ctx->num_objects - 1;
     ctx->objects[index].type = ObjectType::COIN;
     ctx->objects[index].color = YELLOW;
@@ -126,8 +176,13 @@ void render_main_menu(EngineContext *ctx, GameState *current_state) {
         *current_state = STATE_PLAYING;
     }
 
-    DrawText("AAGE - MEU JOGO", ctx->width / 2 - 150, ctx->height / 2 - 50, 32, WHITE);
-    DrawText("Pressione ESPAÇO para Jogar", ctx->width / 2 - 140, ctx->height / 2 + 20, 20, GRAY);
+    const char* title_text = "RECTANGLE SURVIVAL";
+    int title_width = MeasureText(title_text, 32);
+    DrawText(title_text, (ctx->width - title_width) / 2, ctx->height / 2 - 50, 32, WHITE);
+
+    const char* sub_text = "Pressione ESPAÇO para Jogar";
+    int sub_width = MeasureText(sub_text, 20);
+    DrawText(sub_text, (ctx->width - sub_width) / 2, ctx->height / 2 + 20, 20, GRAY);
 }
 
 void render_game_over(EngineContext *ctx, GameState *current_state) {

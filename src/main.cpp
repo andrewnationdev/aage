@@ -23,7 +23,7 @@ int main()
 	context.width = 800;
 
 	//Inicializa a janela
-	window.title = "AAGE - Window";
+	window.title = "Andrew Advanced Game Engine - Raylib";
 	window.width = context.width;
 	window.height = context.height;
 
