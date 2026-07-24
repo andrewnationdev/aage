@@ -6,7 +6,8 @@
 enum GameState {
     STATE_MENU,
     STATE_PLAYING,
-    STATE_GAME_OVER
+    STATE_GAME_OVER,
+    STATE_CREDITS
 };
 
 void game_init_level(EngineContext *ctx, GameState state);

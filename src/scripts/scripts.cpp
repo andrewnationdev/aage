@@ -2,6 +2,74 @@
 #include "../../include/physics.h"
 #include "../../include/engine.h"
 #include "../include/game.h"
+#include <raylib.h>
+
+GameLevels levels;
+
+void level_up(bool condition){
+    if(condition && levels.level < levels.max_levels) levels.level += 1;
+}
+
+int current_level(){
+    return levels.level;
+}
+
+void init_credits(CreditsScreen *credits, int screen_width, int screen_height) {
+    credits->pos_y = (int)GetScreenHeight();
+
+    credits->credits = {
+        "RECTANGLE SURVIVAL",
+        "",
+        "Criado por:",
+        "Andrew Nation",
+        "",
+        "Ferramentas:",
+        "- Raylib",
+        "",
+        "- C++",
+        "",
+        "Obrigado!",
+        "",
+        "PRESSIONE [E] PARA SAIR"
+    };
+
+    credits->text_height = credits->credits.size() * 35.0f;
+}
+
+void update_and_render_credits(CreditsScreen *credits,
+    float deltaTime,
+    GameState *game_state,
+    int screen_height,
+    int screen_width)
+{
+    if(credits->pos_y + credits->text_height < 0 || IsKeyPressed(KEY_E)){
+        *game_state = STATE_MENU;
+        return;
+    }
+
+    BeginDrawing();
+    ClearBackground(GRAY);
+
+    int font_size = 20;
+    float line_spacing = 35.0f;
+    int total_lines = 13;
+
+    float total_text_height = total_lines * line_spacing;
+    float start_y = (screen_height - total_text_height) / 2.0f;
+
+    float current_y = start_y;
+
+    for(int i = 0; i < total_lines; i++) {
+        int text_width = MeasureText(credits->credits[i].c_str(), font_size);
+        float center_x = (screen_width - text_width) / 2.0f;
+
+        DrawText(credits->credits[i].c_str(), center_x, current_y, font_size, WHITE);
+
+        current_y += line_spacing;
+    }
+
+    EndDrawing();
+}
 
 void spawn_enemies(EngineContext *ctx){
     engine_spawn_object(ctx, 122.0f, 250.0f, 0.0f, 100.0f, 20, 20);
@@ -132,6 +200,8 @@ void script_update_collect_coins(EngineContext *ctx){
         ){
             ctx->points = ctx->points + 100;
 
+            level_up(ctx->points > 200 * levels.level);
+
             //PlaySound(coin.wav)
 
             item->health = 0;
@@ -183,6 +253,10 @@ void render_main_menu(EngineContext *ctx, GameState *current_state) {
     const char* sub_text = "Pressione ESPAÇO para Jogar";
     int sub_width = MeasureText(sub_text, 20);
     DrawText(sub_text, (ctx->width - sub_width) / 2, ctx->height / 2 + 20, 20, GRAY);
+
+    const char* cred_text = "Pressione C para créditos";
+    int cred_width = MeasureText(cred_text, 20);
+    DrawText(cred_text, (ctx->width - cred_width) / 2, ctx->height / 2 + 60, 20, GRAY);
 }
 
 void render_game_over(EngineContext *ctx, GameState *current_state) {

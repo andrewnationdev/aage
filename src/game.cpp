@@ -4,6 +4,8 @@
 #include <iostream>
 
 /*** O JOGO É PROGRAMADO NESTE ARQUIVO */
+CreditsScreen credits;
+
 void game_init_level(EngineContext *ctx, GameState state) {
     ctx->num_objects = 0;
 
@@ -32,6 +34,10 @@ void game_init_level(EngineContext *ctx, GameState state) {
 }
 
 void game_check_rules(EngineContext *ctx, GameState *current_state) {
+    if(IsKeyPressed(KEY_C)){
+        *current_state = STATE_CREDITS;
+    }
+
     if (*current_state == STATE_PLAYING) {
         script_update_elements(ctx);
 
@@ -71,5 +77,9 @@ void game_render_gui(EngineContext *ctx, GameState *current_state){
         render_game_over(ctx, current_state);
     } else if(*current_state == STATE_MENU){
         render_main_menu(ctx, current_state);
+    } else if(*current_state == STATE_CREDITS){
+        init_credits(&credits, ctx->width, ctx->height);
+
+        update_and_render_credits(&credits, ctx->deltaTime, current_state, ctx->height, ctx->width);
     }
 }
